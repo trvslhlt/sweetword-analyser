@@ -48,16 +48,27 @@ def main(programFilepath):
         stderr=subprocess.STDOUT,
         shell=True)
     print('----------- complete -----------')
-    # print(result)
-    print(output)
-    print('++++')
 
-    # check if password guess file exists
-    # assert os.path.isfile(passwordsFilepath), 'The program did not output a '
+    # check that output was generated
+    assert output is not None, 'Please print your password indices'
 
+    # ...the output contains the correct number of items
+    passwordGuesses = output.split(',')
+    assert len(passwordGuesses) is sweetwordListCount, 'Please output one index for each sweetword list'
 
+    # ...the indices are integers
+    passwordIndices = []
+    for i in passwordGuesses:
+        try:
+            passwordIndices.append(int(i))
+        except:
+            assert false, 'Please output a list of comma separated integers'
 
+    # ...the indices are valid
+    for i in passwordIndices:
+        assert i >= 0 and i < sweetwordListCount, 'Please output valid indices for the given number of sweetwords'
 
+    print('All good!')
 
 
 if __name__ == '__main__':
