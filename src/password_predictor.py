@@ -1,12 +1,13 @@
 import numpy as np
-from prediction_model import PredictionModel
+# from prediction_model import PredictionModel
+from travis.t_prediction_model import TravisPredictionModel
 
 class PasswordPredictor(object):
 
     def getPasswordIndexPrediction(self, sweetwordList):
         preliminaryPasswordProbabilities = []
 
-        predictionModels = [PredictionModel()]
+        predictionModels = [TravisPredictionModel()]
         for predictionModel in predictionModels:
             predictions = predictionModel.getPasswordProbabilities(sweetwordList)
             if len(predictions) is not len(sweetwordList):

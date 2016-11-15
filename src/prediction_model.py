@@ -1,5 +1,6 @@
 import random
 
+
 class PredictionModel(object):
     '''
     Subclass and add an instance to PaswordPredictor.getPasswordIndexPrediction list

@@ -1,5 +1,8 @@
+import random
+from prediction_model import PredictionModel
 
-class PredictionModel(object):
+
+class TravisPredictionModel(object):
     '''
     Subclass and add an instance to PaswordPredictor.getPasswordIndexPrediction list
     '''
