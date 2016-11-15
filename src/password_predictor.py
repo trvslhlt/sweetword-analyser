@@ -1,6 +1,6 @@
 import numpy as np
 # from prediction_model import PredictionModel
-from travis.t_prediction_model import TravisPredictionModel
+from travis.travis_prediction_model import TravisPredictionModel
 
 class PasswordPredictor(object):
 
