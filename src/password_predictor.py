@@ -1,5 +1,5 @@
 import numpy as np
-import random
+from prediction_model import PredictionModel
 
 class PasswordPredictor(object):
 
@@ -24,15 +24,12 @@ class PasswordPredictor(object):
         return np.argmax(passwordProbabilities)
 
     def _getReconciledPasswordProbabilities(self, preliminaryPasswordIndexPredictions):
+        # strategies
+        # - variance across prediction list
+        #   discard extrema
+        #   choose max or min
+        # - look for consensus (how to combine this with likelihood?)
+        # - pick higest p across the predictions
+        # - choose random
+        # - (add a confidence rating to the predictions?)
         return preliminaryPasswordIndexPredictions[0]
-
-class PredictionModel(object):
-    '''
-    Subclass and add an instance to PaswordPredictor.getPasswordIndexPrediction list
-    '''
-
-    def getPasswordProbabilities(self, sweetwords):
-        passwordProbabilities = [0.0] * len(sweetwords)
-        randomIndex = random.randint(0, len(sweetwords) - 1)
-        passwordProbabilities[randomIndex] = 1.0
-        return passwordProbabilities
