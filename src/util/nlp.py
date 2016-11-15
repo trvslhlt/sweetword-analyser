@@ -1,5 +1,5 @@
 import enchant
-import re
+
 
 def containsWords(s):
     if len(s) == 1 and s.isalpha():
@@ -50,15 +50,3 @@ def getScore(s):
                     scores.append(score)
         return max(scores) if scores else 0
     return helper(s) / float(len(s)) if len(s) > 0 else 0.0
-
-
-def getProbabilities(sweetwords):
-    # can not deal with sweetword that contains no letters
-    result = []
-    for s in sweetwords:
-        words = re.findall(r"[a-zA-Z']+", s)
-        if not words:
-            result.append(0.0)
-        else:
-            result.append(sum([getScore(w) for w in words]) / float(len(words)))
-    return result

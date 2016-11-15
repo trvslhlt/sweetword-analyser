@@ -1,16 +1,17 @@
 import numpy as np
 # from prediction_model import PredictionModel
 from travis.travis_prediction_model import TravisPredictionModel
+from nlp_prediction_model import NLPPredictionModel
 
 class PasswordPredictor(object):
 
     def getPasswordIndexPrediction(self, sweetwordList):
         preliminaryPasswordProbabilities = []
 
-        predictionModels = [TravisPredictionModel()]
+        predictionModels = [TravisPredictionModel(), NLPPredictionModel()]
         for predictionModel in predictionModels:
             predictions = predictionModel.getPasswordProbabilities(sweetwordList)
-            if len(predictions) is not len(sweetwordList):
+            if len(predictions) != len(sweetwordList):
                 print('prediction model:', predictionModel)
                 print('prediction count:', len(predictions))
                 assert False, 'Password prediction count does not match sweetword list length'
