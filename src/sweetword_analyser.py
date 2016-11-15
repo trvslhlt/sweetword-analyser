@@ -4,19 +4,17 @@ import csv
 
 def main(sweetwordListCount, sweetwordsPerList, sweetwordsListsFilepath):
     sweetwordLists = readSweetwords(sweetwordsListsFilepath)
-    print(sweetwordLists)
     # passwordIndices = getPasswordIndicesForSweetwordLists(sweetwordsLists)
     # print(passwordIndices)
 
 
 def readSweetwords(sweetwordsListsFilepath):
-    sweetwordsLists = []
+    sweetwordLists = []
     with open(sweetwordsListsFilepath, 'rb') as f:
         reader = csv.reader(f)
         for row in reader:
-            sweetwords = row.split(',')
-            sweetwordLists.append(sweetwords)
-    return sweetwordsLists
+            sweetwordLists.append(row)
+    return sweetwordLists
 
 
 def getPasswordIndicesForSweetwordLists(sweetwordLists):
