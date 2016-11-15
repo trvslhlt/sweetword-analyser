@@ -62,7 +62,7 @@ def main(programFilepath):
         try:
             passwordIndices.append(int(i))
         except:
-            assert false, 'Please output a list of comma separated integers'
+            assert False, 'Please output a list of comma separated integers'
 
     # ...the indices are valid
     for i in passwordIndices:
