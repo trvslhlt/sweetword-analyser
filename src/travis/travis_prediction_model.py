@@ -1,5 +1,6 @@
 import random
 from prediction_model import PredictionModel
+from util.password_processor import PasswordProcessor
 from util import word_statistics as WS
 from util import passwordReader as PR
 import util.frequencyAnalysis
@@ -7,16 +8,26 @@ from util.frequencyAnalysis import FrequencyAnalyzer as FA
 
 
 class TravisPredictionModel(object):
-    '''
-    Subclass and add an instance to PaswordPredictor.getPasswordIndexPrediction list
-    '''
-
 
     def getPasswordProbabilities(self, sweetwords):
         # return methodA(sweetwords)
         # return methodB(sweetwords)
         # return methodC(sweetwords)
-        return methodE(sweetwords)
+        # return methodE(sweetwords)
+        return methodF(sweetwords)
+
+
+def methodF(sweetwords):
+    '''
+    Assign ps for matching password tokens
+    '''
+    passwordsWithCounts = PR.readTrainingPasswords()
+    passwordProcessor = PasswordProcessor(passwordsWithCounts)
+    scores = []
+    for word in sweetwords:
+        score = passwordProcessor.getTotalTokenFrequencyForWord(word)
+        scores.append(score)
+    return getProbabilitiesFromScores(scores)
 
 
 def methodE(sweetwords):

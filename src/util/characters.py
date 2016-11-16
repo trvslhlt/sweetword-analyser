@@ -19,11 +19,12 @@ def getCharacterGroup(character):
         return uppercase_letters
     elif character in digits:
         return digits
-    elif character in punctuation:
+    elif character in punctuation or character == ',':
         return punctuation
     elif character in whitespace:
         return whitespace
     else:
+        return allCharacters
         raise Exception('character case not handled')
 
 
