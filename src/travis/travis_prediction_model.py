@@ -16,7 +16,20 @@ class TravisPredictionModel(object):
         # return methodA(sweetwords)
         # return methodB(sweetwords)
         # return methodC(sweetwords)
-        return methodD(sweetwords)
+        return methodE(sweetwords)
+
+
+def methodE(sweetwords):
+    '''
+    Assign ps based on sweetword length
+    '''
+    passwordsWithCounts = PR.readTrainingPasswords()
+    frequencyAnalyzer = FA(passwordsWithCounts)
+    ps = []
+    for word in sweetwords:
+        p = frequencyAnalyzer.getWordLengthProbability(word)
+        ps.append(p)
+    return getProbabilitiesFromScores(ps)
 
 
 def methodD(sweetwords):

@@ -9,12 +9,14 @@ class FrequencyAnalyzer:
         self.characterFrequencyDict = defaultdict(int)
         self.characterProbailityDict = defaultdict(float)
         self.relationFrequencyDict = defaultdict(lambda : defaultdict(int))
+        self.passwordLengthFrequency = defaultdict(int)
         self.analyze(trainingPasswordsAndCounts)
 
 
     def analyze(self, trainingPasswordsAndCounts):
         # for each ("password", "12345")
         for password, freqStr in trainingPasswordsAndCounts:
+            self.passwordLengthFrequency[len(password)] += 1
             freq = int(freqStr)
             # for charcter in password
             for idx, ch in enumerate(password):
@@ -83,3 +85,9 @@ class FrequencyAnalyzer:
             upperSecondChFq = upperTransitionDict[secondCh]
             if totalFq == 0: return 0.001
             return (lowerSecondChFq + upperSecondChFq) / totalFq
+
+
+    def getWordLengthProbability(self, word):
+        totalPasswordFrequency = sum(self.passwordLengthFrequency.values())
+        lengthFrequency = self.passwordLengthFrequency[len(word)]
+        return float(lengthFrequency) / totalPasswordFrequency
