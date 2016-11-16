@@ -10,14 +10,24 @@ from util.frequencyAnalysis import FrequencyAnalyzer as FA
 class TravisPredictionModel(object):
 
     def getPasswordProbabilities(self, sweetwords):
-        # return methodA(sweetwords)
-        # return methodB(sweetwords)
-        # return methodC(sweetwords)
-        # return methodE(sweetwords)
-        return methodF(sweetwords)
+        methodsAndWeights = [
+            (randomWinnerMethod, 8),
+            (indexInsensitiveMedianMethod, 16),
+            (averageCharacterFrequencyMethod, 32),
+            (averageCharacterTransitionFrequencyMethod, 32),
+            (wordLengthLikelihoodMethod, 64),
+            (tokenMatchScoreMethod, 64)
+        ]
+        totalScores = [0] * len(sweetwords)
+        for method, weight in methodsAndWeights:
+            scores = method(sweetwords)
+            for wordIdx in range(0, len(sweetwords)):
+                totalScores[wordIdx] += scores[wordIdx] * weight
+        ps = getProbabilitiesFromScores(totalScores)
+        return ps
 
 
-def methodF(sweetwords):
+def tokenMatchScoreMethod(sweetwords):
     '''
     Assign ps for matching password tokens
     '''
@@ -30,7 +40,7 @@ def methodF(sweetwords):
     return getProbabilitiesFromScores(scores)
 
 
-def methodE(sweetwords):
+def wordLengthLikelihoodMethod(sweetwords):
     '''
     Assign ps based on sweetword length
     '''
@@ -43,7 +53,7 @@ def methodE(sweetwords):
     return getProbabilitiesFromScores(ps)
 
 
-def methodD(sweetwords):
+def averageCharacterTransitionFrequencyMethod(sweetwords):
     '''
     Assign probabilities based on avg character transition probability
     '''
@@ -63,7 +73,7 @@ def methodD(sweetwords):
     return getProbabilitiesFromScores(avgPs)
 
 
-def methodC(sweetwords):
+def averageCharacterFrequencyMethod(sweetwords):
     '''
     Assign probabilities based on avg character probability
     '''
@@ -77,12 +87,12 @@ def methodC(sweetwords):
     return getProbabilitiesFromScores(avgPs)
 
 
-def methodB(sweetwords):
+def indexInsensitiveMedianMethod(sweetwords):
     scores = getIndexSensitiveMedianBasedScores(sweetwords)
     return getProbabilitiesFromScores(scores)
 
 
-def methodA(sweetwords):
+def randomWinnerMethod(sweetwords):
     '''
     Assign p of 1 to a random sweetword. Base case
     '''
