@@ -10,7 +10,6 @@ class FrequencyAnalyzer:
         self.characterProbailityDict = defaultdict(float)
         self.relationFrequencyDict = defaultdict(lambda : defaultdict(int))
         self.analyze(trainingPasswordsAndCounts)
-        self.getCharacterProbability('a')
 
 
     def analyze(self, trainingPasswordsAndCounts):
@@ -65,4 +64,22 @@ class FrequencyAnalyzer:
             lower = self.characterProbailityDict[character.lower()]
             return upper + lower
 
-    # def getChracterTransitionProbability(self, firstLetter, secondLetter):
+
+    def getCharacterTransitionProbability(self, firstCh, secondCh, caseSensitive=False):
+        if caseSensitive:
+            transitionDict = self.relationFrequencyDict[firstCh]
+            totalFq = float(sum(transitionDict.values()))
+            secondChFq = transitionDict[secondCh]
+            print(transitionDict)
+            print(firstCh, secondCh)
+            print(totalFq, secondChFq)
+            if totalFq == 0: return 0.001
+            return secondChFq / totalFq
+        else:
+            lowerTransitionDict = self.relationFrequencyDict[firstCh.lower()]
+            upperTransitionDict = self.relationFrequencyDict[firstCh.upper()]
+            totalFq = float(sum(lowerTransitionDict.values()) + sum(upperTransitionDict.values()))
+            lowerSecondChFq = lowerTransitionDict[secondCh]
+            upperSecondChFq = upperTransitionDict[secondCh]
+            if totalFq == 0: return 0.001
+            return (lowerSecondChFq + upperSecondChFq) / totalFq

@@ -15,7 +15,28 @@ class TravisPredictionModel(object):
     def getPasswordProbabilities(self, sweetwords):
         # return methodA(sweetwords)
         # return methodB(sweetwords)
-        return methodC(sweetwords)
+        # return methodC(sweetwords)
+        return methodD(sweetwords)
+
+
+def methodD(sweetwords):
+    '''
+    Assign probabilities based on avg character transition probability
+    '''
+    passwordsWithCounts = PR.readTrainingPasswords()
+    frequencyAnalyzer = FA(passwordsWithCounts)
+    avgPs = []
+    for word in sweetwords:
+        if len(word) == 0:
+            avgPs.append(.001)
+        else:
+            transitionsPs = []
+            for chIdx in range(0, len(word) - 1):
+                firstCh, secondCh = word[chIdx], word[chIdx + 1]
+                transitionP = frequencyAnalyzer.getCharacterTransitionProbability(firstCh, secondCh)
+                transitionsPs.append(transitionP)
+            avgPs.append(sum(transitionsPs) / len(word))
+    return getProbabilitiesFromScores(avgPs)
 
 
 def methodC(sweetwords):
