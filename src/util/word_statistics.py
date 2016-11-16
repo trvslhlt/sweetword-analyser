@@ -40,6 +40,7 @@ def getIndexSensitiveCharacterDiffCount(comparisonWord, words):
         diffCounts.append(diffCount)
     return diffCounts
 
+
 # can be split to more general util if needed
 def getMostCommonElement(l):
     return max(set(l), key=l.count)

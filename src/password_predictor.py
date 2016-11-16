@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from travis.travis_prediction_model import TravisPredictionModel
 from nlp_prediction_model import NLPPredictionModel
 
@@ -34,3 +35,4 @@ class PasswordPredictor(object):
         # - choose random
         # - (add a confidence rating to the predictions?)
         return preliminaryPasswordIndexPredictions[0]
+        # return preliminaryPasswordIndexPredictions[random.randint(0, len(preliminaryPasswordIndexPredictions) - 1)]
