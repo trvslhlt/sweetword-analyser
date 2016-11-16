@@ -1,5 +1,4 @@
 import numpy as np
-# from prediction_model import PredictionModel
 from travis.travis_prediction_model import TravisPredictionModel
 from nlp_prediction_model import NLPPredictionModel
 
